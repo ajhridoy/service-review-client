@@ -5,7 +5,7 @@ import logo from "../../images/download-removebg-preview.png"
 const Header = () => {
     const [navbar, setNavbar] = useState(false);
   return (
-    <nav className="w-full bg-white shadow">
+    <nav className="w-full bg-orange-200 shadow-lg">
         <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
             <div>
                 <div className="flex items-center justify-between py-3 md:py-5 md:block">
@@ -57,18 +57,18 @@ const Header = () => {
                     }`}
                 >
                     <ul className="items-center justify-center text-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-                        <li className="text-gray-600 hover:bg-orange-300 rounded-lg p-3 font-semibold">
+                        <li className="text-gray-600 hover:bg-orange-700 hover:text-white rounded-lg p-3 font-semibold">
                             <Link to='/home'>Home</Link>
                         </li>
-                        <li className="text-gray-600 hover:bg-orange-300 rounded-lg p-3 font-semibold">
+                        <li className="text-gray-600 hover:bg-orange-700 hover:text-white rounded-lg p-3 font-semibold">
                             <Link to='/services'>Services</Link>
-                        </li>
-                        <li className="text-gray-600 hover:bg-orange-300 rounded-lg p-3 font-semibold">
+                        </li> 
+                        <li className="text-gray-600 hover:bg-orange-700 hover:text-white rounded-lg p-3 font-semibold">
                             <Link to='/blog'>Blog</Link>
                         </li>
                     
                         <li className="text-gray-600 hover:text-blue-600">
-                            <Link to='signin'><button className="btn btn-outline btn-primary">Sign in</button></Link>
+                            <Link to='signin'><button className="btn btn-accent">Sign in</button></Link>
                         </li>
                         
                     </ul>
