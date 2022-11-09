@@ -11,36 +11,37 @@ const Authprovider = ({children}) => {
     const googleProvider = new GoogleAuthProvider();
 
     const createUser = (email, password) => {
-        // loading(true)
+        setLoading(true)
         return createUserWithEmailAndPassword(auth, email, password)
     }
 
     const updateUser = (name, photourl) => {
-        // loading(true)
+        setLoading(true)
         return updateProfile(auth.currentUser, {
             displayName: name, photoURL: photourl
           })
     }
 
     const userLogin = (email, password) => {
-        //l oading(true)
+        setLoading(true)
         return signInWithEmailAndPassword(auth, email, password)
     }
 
     useEffect( () => {
         const unsubsCribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser)
-            // setLoading(false)
+            setLoading(false)
         })
         return () => unsubsCribe();
     }, [])
 
     const googlelogin = () => {
+        setLoading(true)
         return signInWithPopup(auth, googleProvider)
     }
 
     const loOut = () => {
-        // setLoading(true)
+        setLoading(true)
         return signOut(auth);
     }
 
