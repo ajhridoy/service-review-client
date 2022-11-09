@@ -1,14 +1,30 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaGoogle } from "react-icons/fa";
+import { AuthContext } from '../../Authprovider/Authprovider';
+import toast from 'react-hot-toast';
 
 const Login = () => {
+  const {userLogin} = useContext(AuthContext)
+  const [error, setError] = useState(null)
   const handleLogin = event => {
     event.preventDefault()
     const form = event.target
     const email = form.email.value;
     const password = form.password.value;
-    console.log(email, password)
+    // console.log(email, password)
+    userLogin(email, password)
+    .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      toast.success('Login Successfully')
+      console.log(user)
+      form.reset()
+      // ...
+    })
+    .catch((error) => {
+      setError(error.message);
+    });
   }
     return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gray-300">
@@ -57,7 +73,7 @@ const Login = () => {
                 <Link href="#" className="inline-flex text-xs sm:text-sm text-blue-500 hover:text-blue-700">Forgot Your Password?</Link>
               </div>
             </div>
-    
+            <p className='text-red-600'>{error}</p>
             <div className="flex w-full">
               <button type="submit" className="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded py-2 w-full transition duration-150 ease-in">
                 <span className="mr-2 uppercase">Login</span>
