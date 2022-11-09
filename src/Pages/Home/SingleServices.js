@@ -15,7 +15,7 @@ const SingleServices = ({ service }) => {
         <div className="card-actions justify-end items-center">
             <p className="font-semibold">Price: <span className="text-red-400">${price}</span></p>
             <p className="flex items-center"><span className="text-warning mr-2"><FaStar></FaStar></span><span className="font-semibold">{ratings}</span></p>
-          <Link to={`/serviceDetails/${_id}`}><button className="btn btn-info">See Details <span className="ml-3"><FaArrowRight></FaArrowRight></span></button></Link>
+          <Link to={`/service/${_id}`}><button className="btn btn-info">View Details <span className="ml-3"><FaArrowRight></FaArrowRight></span></button></Link>
         </div>
       </div>
     </div>

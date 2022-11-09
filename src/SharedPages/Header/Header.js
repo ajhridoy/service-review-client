@@ -68,7 +68,7 @@ const Header = () => {
                         </li>
                     
                         <li className="text-gray-600 hover:text-blue-600">
-                            <Link to='signin'><button className="btn btn-accent">Sign in</button></Link>
+                            <Link to='login'><button className="btn btn-accent">Log in</button></Link>
                         </li>
                         
                     </ul>
