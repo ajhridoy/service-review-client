@@ -5,7 +5,7 @@ import { AuthContext } from '../../Authprovider/Authprovider';
 import toast from 'react-hot-toast';
 
 const Login = () => {
-  const {userLogin} = useContext(AuthContext)
+  const {userLogin, googlelogin} = useContext(AuthContext)
   const [error, setError] = useState(null)
   const handleLogin = event => {
     event.preventDefault()
@@ -26,11 +26,23 @@ const Login = () => {
       setError(error.message);
     });
   }
+
+  //google sign in
+  const handleGoogleSignin = () => {
+    googlelogin()
+    .then((result) => {
+      const user = result.user;
+      console.log(user)
+    }).catch((error) => {
+      // Handle Errors here.
+      setError(error.code);
+    });
+  }
     return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gray-300">
       <div className="flex flex-col bg-white shadow-md px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-md w-full max-w-md">
         <div className="font-medium self-center text-xl sm:text-2xl uppercase text-gray-800">Login To Your Account</div>
-        <button className=" flex justify-center items-center mt-6 border rounded-md py-2 text-sm text-gray-800 bg-gray-100 hover:bg-gray-200">
+        <button onClick={handleGoogleSignin} className=" flex justify-center items-center mt-6 border rounded-md py-2 text-sm text-gray-800 bg-gray-100 hover:bg-gray-200">
           <span className="h-full mr-3 text-lg text-black"><FaGoogle></FaGoogle></span>
           <span>Login with Google</span>
         </button>

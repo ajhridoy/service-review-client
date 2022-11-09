@@ -1,19 +1,37 @@
-import React from "react";
-import { useLoaderData } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useLoaderData } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
-import { data } from "autoprefixer";
+import { AuthContext } from "../../Authprovider/Authprovider";
+import toast from "react-hot-toast";
+import Review from "./Review/Review";
 
 const ServiceDetails = () => {
+  const {user} = useContext(AuthContext)
   const service = useLoaderData();
   const { _id, img, name, desc, price, ratings } = service;
+  const [reviews, setReviews] = useState([])
+  const [displayReviews, setDisplayReviews] = useState(false)
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/reviews?itemId=${_id}`)
+  .then(res => res.json())
+  .then(data => {
+    setReviews(data)
+  })
+  }, [_id, displayReviews])
+
+  // console.log(reviews)
 
   const handleSubmit = event => {
     event.preventDefault()
     const form = event.target;
+    const email = user?.email
+    const time = new Date()
+    const photourl = user?.photoURL
     const name = form.name.value;
     const message = form.message.value;
     const itemId = _id;
-    const reviewDetails = {name, message, itemId}
+    const reviewDetails = {name, message, itemId, email, photourl, time}
     console.log(reviewDetails)
     fetch('http://localhost:5000/reviews', {
     method: 'POST',
@@ -24,7 +42,11 @@ const ServiceDetails = () => {
     })
     .then(res => res.json())
     .then(data => {
-        console.log(data)
+        if(data.acknowledged){
+          toast.success('You success fully Added a Review')
+          setDisplayReviews(true)
+          form.reset()
+        }
     })
   }
   return (
@@ -56,11 +78,25 @@ const ServiceDetails = () => {
         </div>
       </div>
       <div className="my-5">
+        <h2 className="text-3xl font-bold text-center">Here is Our Some Clients Review</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+          {
+            reviews.map(review => <Review
+              key={review._id}
+              review={review}
+            ></Review>)
+          }
+        </div>
+      </div>
+      {
+        user ? 
+       <>
+          <div className="my-5 p-3">
         <h2 className="text-2xl font-bold text-center">Add Your Reviews</h2>
         <form onSubmit={handleSubmit} className="text-center">
         <div className="mb-4">
             <label htmlFor="name" className="block mb-2 font-semibold">Your Name:</label>
-        <input type="text" name="name" placeholder="Name" className="input input-bordered input-accent w-full max-w-lg" />
+        <input type="text" name="name" placeholder="Name" defaultValue={user?.displayName} className="input input-bordered input-accent w-full max-w-lg" />
         </div>
         <div className="mb-4">
             <label htmlFor="message" className="block mb-2 font-semibold">Your Message:</label>
@@ -69,7 +105,15 @@ const ServiceDetails = () => {
         <input type="submit" className="btn btn-accent" value="Send Reviews" />
         </form>
       </div>
-    </div>
+    </>
+        :
+        <>
+        <h2>
+          <span className="text-3xl font-bold">If You Want To Review this Item..!! Please</span> <Link className="text-4xl font-bold text-orange-600 underline" to='/login'>LOG IN</Link>
+        </h2>
+        </>
+      }
+  </div>
   );
 };
 

@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Authprovider/Authprovider";
 import logo from "../../images/download-removebg-preview.png"
 
 const Header = () => {
+    const {user, loOut} = useContext(AuthContext)
     const [navbar, setNavbar] = useState(false);
+    const handleLogOut = () => {
+        loOut()
+        .then(() => {
+            // Sign-out successful.
+          }).catch((error) => {
+            // An error happened.
+          });
+    }
   return (
     <nav className="w-full bg-orange-200 shadow-lg">
         <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
@@ -66,10 +76,25 @@ const Header = () => {
                         <li className="text-gray-600 hover:bg-orange-700 hover:text-white rounded-lg p-3 font-semibold">
                             <Link to='/blog'>Blog</Link>
                         </li>
-                    
+
+                        {user ?
+                            <>
+                            <li className="text-gray-600 hover:bg-orange-700 hover:text-white rounded-lg p-3 font-semibold">
+                            <Link to='/addservice'>Add Service</Link>
+                            </li>
+                            <li className="text-gray-600 hover:bg-orange-700 hover:text-white rounded-lg p-3 font-semibold">
+                            <Link to='/myreviews'>My Reviews</Link>
+                            </li>
+                            <li className="text-gray-600 hover:text-blue-600">
+                            <button onClick={handleLogOut} className="btn btn-accent">Log Out</button>
+                            </li>
+                            </>
+                         :
+
                         <li className="text-gray-600 hover:text-blue-600">
                             <Link to='login'><button className="btn btn-accent">Log in</button></Link>
                         </li>
+                          }
                         
                     </ul>
                 </div>
