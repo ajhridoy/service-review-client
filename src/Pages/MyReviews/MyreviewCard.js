@@ -1,8 +1,9 @@
 import { data } from 'autoprefixer';
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-const MyreviewCard = ({review}) => {
-    const{itemId, message} = review
+const MyreviewCard = ({review, handleDelete}) => {
+    const{_id, itemId, message} = review
     const [service, setService] = useState([])
     useEffect(() => {
         fetch(`http://localhost:5000/service/${itemId}`)
@@ -15,8 +16,8 @@ const MyreviewCard = ({review}) => {
     <h2 className="card-title">{service.name}</h2>
     <p>{message}</p>
     <div className="card-actions justify-end mt-3">
-      <button className="btn btn-primary mr-3">Edit</button>
-      <button className="btn btn-error">Delete</button>
+      <Link to='/update'><button className="btn btn-primary mr-3">Edit</button></Link>
+      <button onClick={() => handleDelete(_id)} className="btn btn-error">Delete</button>
     </div>
   </div>
 </div>
