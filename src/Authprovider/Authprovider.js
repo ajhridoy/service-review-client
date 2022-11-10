@@ -40,12 +40,13 @@ const Authprovider = ({children}) => {
         return signInWithPopup(auth, googleProvider)
     }
 
-    const loOut = () => {
+    const logOut = () => {
         setLoading(true)
+        localStorage.removeItem('serviceToken')
         return signOut(auth);
     }
 
-    const userInfo = {user, loading, createUser, updateUser, userLogin, googlelogin, loOut}
+    const userInfo = {user, loading, createUser, updateUser, userLogin, googlelogin, logOut}
     return (
         <AuthContext.Provider value={userInfo}>
            {children} 

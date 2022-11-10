@@ -4,10 +4,10 @@ import { AuthContext } from "../../Authprovider/Authprovider";
 import logo from "../../images/download-removebg-preview.png"
 
 const Header = () => {
-    const {user, loOut} = useContext(AuthContext)
+    const {user, logOut} = useContext(AuthContext)
     const [navbar, setNavbar] = useState(false);
     const handleLogOut = () => {
-        loOut()
+        logOut()
         .then(() => {
             // Sign-out successful.
           }).catch((error) => {

@@ -4,13 +4,22 @@ import { AuthContext } from '../../Authprovider/Authprovider';
 import MyreviewCard from './MyreviewCard';
 
 const MyReviews = () => {
-    const {user} = useContext(AuthContext)
+    const {user, logOut} = useContext(AuthContext)
     const [myReviews, setMyReviews] = useState([])
     useEffect(() => {
-        fetch(`http://localhost:5000/myreviews?email=${user?.email}`)
-        .then(res => res.json())
+        fetch(`http://localhost:5000/myreviews?email=${user?.email}`, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('serviceToken')}`
+            }
+        })
+        .then(res => {
+            if(res.status === 401 || res.status === 403){
+               return logOut()
+            }
+            return res.json()
+        })
         .then(data => setMyReviews(data))
-    }, [user?.email])
+    }, [user?.email, logOut])
 
     // added delete method
     const handleDelete = id => {
