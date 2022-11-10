@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Review = ({review}) => {
-    const {name, message, photourl, time} = review;
+    const {name, message, photourl} = review;
     return (
         <div className="my-8 text-gray-100">
 	<div>

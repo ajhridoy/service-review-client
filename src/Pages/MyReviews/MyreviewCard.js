@@ -16,7 +16,7 @@ const MyreviewCard = ({review, handleDelete}) => {
     <h2 className="card-title">{service.name}</h2>
     <p>{message}</p>
     <div className="card-actions justify-end mt-3">
-      <Link to='/update'><button className="btn btn-primary mr-3">Edit</button></Link>
+      <Link to={`/update/${_id}`}><button className="btn btn-primary mr-3">Edit</button></Link>
       <button onClick={() => handleDelete(_id)} className="btn btn-error">Delete</button>
     </div>
   </div>
