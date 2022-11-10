@@ -3,12 +3,14 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaGoogle } from "react-icons/fa";
 import { AuthContext } from '../../Authprovider/Authprovider';
 import toast from 'react-hot-toast';
+import useTitle from '../../hooks/useTitle';
 
 const Login = () => {
   const {userLogin, googlelogin} = useContext(AuthContext)
   const [error, setError] = useState(null)
   const location = useLocation()
   const navigate = useNavigate()
+  useTitle('LogIn')
 
   const from = location.state?.from?.pathname || '/home'
 
@@ -31,7 +33,7 @@ const Login = () => {
       form.reset()
 
       //get JWt token
-      fetch('http://localhost:5000/jwt', {
+      fetch('https://service-review-server-phi-one.vercel.app/jwt', {
         method: 'POST',
         headers: {
           'content-type': 'application/json'

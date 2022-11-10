@@ -1,9 +1,11 @@
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
+import useTitle from '../../hooks/useTitle';
 import SingleServices from '../Home/SingleServices';
 
 const Services = () => {
     const services = useLoaderData()
+    useTitle('Services')
     return (
         <div>
         <h2 className='text-4xl font-bold text-center my-5 font-mono'>My Services</h2>

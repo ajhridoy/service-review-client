@@ -6,12 +6,12 @@ const MyreviewCard = ({review, handleDelete}) => {
     const{_id, itemId, message} = review
     const [service, setService] = useState([])
     useEffect(() => {
-        fetch(`http://localhost:5000/service/${itemId}`)
+        fetch(`https://service-review-server-phi-one.vercel.app/service/${itemId}`)
         .then(res => res.json())
         .then(data => setService(data))
     }, [itemId])
     return (
-        <div className="card w-96 bg-neutral text-neutral-content">
+        <div className="card w-78 bg-neutral text-neutral-content">
   <div className="card-body items-center text-center">
     <h2 className="card-title">{service.name}</h2>
     <p>{message}</p>

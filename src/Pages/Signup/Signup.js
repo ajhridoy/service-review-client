@@ -2,10 +2,12 @@ import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Authprovider/Authprovider';
+import useTitle from '../../hooks/useTitle';
 
 const Signup = () => {
     const {createUser, updateUser} = useContext(AuthContext)
     const [error, setError] = useState(null)
+    useTitle('SignUp')
     const handleSignup = event => {
         event.preventDefault()
         const form = event.target

@@ -1,13 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../Authprovider/Authprovider';
+import useTitle from '../../hooks/useTitle';
 import MyreviewCard from './MyreviewCard';
 
 const MyReviews = () => {
     const {user, logOut} = useContext(AuthContext)
     const [myReviews, setMyReviews] = useState([])
+    useTitle('MyReviews')
     useEffect(() => {
-        fetch(`http://localhost:5000/myreviews?email=${user?.email}`, {
+        fetch(`https://service-review-server-phi-one.vercel.app/myreviews?email=${user?.email}`, {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('serviceToken')}`
             }
@@ -25,7 +27,7 @@ const MyReviews = () => {
     const handleDelete = id => {
         const proceed = window.confirm('Are you Sure to delete this review')
         if(proceed){
-            fetch(`http://localhost:5000/myreviews/${id}`, {
+            fetch(`https://service-review-server-phi-one.vercel.app/myreviews/${id}`, {
                 method: 'DELETE'
             })
             .then(res => res.json())

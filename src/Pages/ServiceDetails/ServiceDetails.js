@@ -4,6 +4,7 @@ import { FaStar } from "react-icons/fa";
 import { AuthContext } from "../../Authprovider/Authprovider";
 import toast from "react-hot-toast";
 import Review from "./Review/Review";
+import useTitle from "../../hooks/useTitle";
 
 const ServiceDetails = () => {
   const {user} = useContext(AuthContext)
@@ -11,9 +12,10 @@ const ServiceDetails = () => {
   const { _id, img, name, desc, price, ratings } = service;
   const [reviews, setReviews] = useState([])
   const [displayReviews, setDisplayReviews] = useState(false)
+  useTitle('Service-Details')
 
   useEffect(() => {
-    fetch(`http://localhost:5000/reviews?itemId=${_id}`)
+    fetch(`https://service-review-server-phi-one.vercel.app/reviews?itemId=${_id}`)
   .then(res => res.json())
   .then(data => {
     setReviews(data)
@@ -33,7 +35,7 @@ const ServiceDetails = () => {
     const itemId = _id;
     const reviewDetails = {name, message, itemId, email, photourl, time}
     console.log(reviewDetails)
-    fetch('http://localhost:5000/reviews', {
+    fetch('https://service-review-server-phi-one.vercel.app/reviews', {
     method: 'POST',
     headers: {
         'content-type': 'application/json'
@@ -51,6 +53,7 @@ const ServiceDetails = () => {
   }
   return (
     <div>
+      //  service details start
       <div className="hero bg-slate-200">
         <div className="hero-content flex-col lg:flex-row">
           <img
@@ -77,6 +80,9 @@ const ServiceDetails = () => {
           </div>
         </div>
       </div>
+      // service details end
+
+      // clint review start
       <div className="my-5">
         <h2 className="text-3xl font-bold text-center">Here is Our Some Clients Review</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
@@ -87,6 +93,9 @@ const ServiceDetails = () => {
             ></Review>)
           }
         </div>
+        {/* client review end */}
+
+        {/* review form  */}
       </div>
       {
         user ? 

@@ -2,10 +2,12 @@ import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../../Authprovider/Authprovider';
+import useTitle from '../../hooks/useTitle';
 
 const UpdateReview = () => {
   const {user} = useContext(AuthContext)
     const storedReviews = useLoaderData()
+    useTitle('Update-Reviews')
 
     const handleUpdate = event => {
         event.preventDefault()
@@ -19,7 +21,7 @@ const UpdateReview = () => {
     const reviewDetails = {name, message, itemId, email, photourl, time}
     console.log(reviewDetails)
 
-        fetch(`http://localhost:5000/myreviews/${storedReviews._id}`, {
+        fetch(`https://service-review-server-phi-one.vercel.app/myreviews/${storedReviews._id}`, {
           method: 'PUT',
           headers: {
             'content-type': 'application/json'
