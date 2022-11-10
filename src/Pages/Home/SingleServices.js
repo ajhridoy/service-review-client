@@ -1,14 +1,21 @@
 import React from "react";
 import { FaArrowRight, FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { PhotoProvider, PhotoView } from 'react-photo-view';
 
 const SingleServices = ({ service }) => {
   const { _id, img, name, desc, price, ratings } = service;
   return (
     <div className="card md:w-78 bg-base-100 shadow-xl">
-      <figure>
-        <img className="" src={img} alt="photography" />
-      </figure>
+      {/* <figure> */}
+      <PhotoProvider>
+      <div className="foo">
+        <PhotoView src={img}>
+          <img className="rounded-lg" src={img} alt="photography" />
+        </PhotoView>
+      </div>
+    </PhotoProvider>
+      {/* </figure> */}
       <div className="card-body">
         <h2 className="card-title">{name}</h2>
         <p>{desc.slice(0, 100)} ...</p>
