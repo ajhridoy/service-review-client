@@ -108,7 +108,7 @@ const ServiceDetails = () => {
     </>
         :
         <>
-        <h2>
+        <h2 className="text-center">
           <span className="text-3xl font-bold">If You Want To Review this Item..!! Please</span> <Link className="text-4xl font-bold text-orange-600 underline" to='/login'>LOG IN</Link>
         </h2>
         </>
