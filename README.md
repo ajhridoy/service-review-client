@@ -2,7 +2,7 @@
 
 Live Link: https://service-review-assinment.firebaseapp.com/
 
-# features:
+# Technologis:
 
 * create a website using react, 
 * react-router 
